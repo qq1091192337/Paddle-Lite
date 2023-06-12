@@ -2,7 +2,7 @@ FROM arm64v8/ubuntu:20.04
 
 # Set the working directory
 WORKDIR /workspace
-RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add - && \
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
   apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' && \
   
 
@@ -31,3 +31,6 @@ RUN sed -i 's/ARCH=armv8/ARCH=armv8\nWITH_EXCEPTION=ON\nWITH_EXTRA=ON/' ./tools/
 
 # Execute the build script
 RUN ./tools/build_linux.sh
+
+RUN cp /workspace/Paddle-Lite/build.lite.linux.armv8.gcc/inference_lite_lib.armlinux.armv8/ /artifacts/
+
