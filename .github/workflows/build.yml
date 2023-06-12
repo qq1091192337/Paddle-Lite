@@ -10,11 +10,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Dockerfile
         uses: actions/checkout@v2
         with:
           repository: qq1091192337/Paddle-Lite
-          ref: develop
+          path: ./
+          
+      - name: Checkout Paddle-Lite source code
+        uses: actions/checkout@v2
+        with:
+          repository: PaddlePaddle/Paddle-Lite
+          path: ./Paddle-Lite
+          
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -26,10 +33,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          context: docker
+          context: ./Paddle-Lite
           push: false
           platforms: linux/arm64
-          file: Dockerfile
+          file: ../Dockerfile
           build-args: |
             WITH_EXCEPTION=ON
             WITH_EXTRA=ON
