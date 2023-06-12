@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   unzip \
   patchelf \
   python-dev \
-  git \
+  git 
 
 
 # Clone the Paddle Lite repo and checkout the develop branch
