@@ -15,7 +15,7 @@ ARG CMAKE_VERSION=3.22.1
 # Download and run the installation script
 RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-aarch64.sh \
     && chmod +x cmake-${CMAKE_VERSION}-linux-aarch64.sh \
-    && sudo ./cmake-${CMAKE_VERSION}-linux-aarch64.sh --skip-license --prefix=/usr/local \
+    &&  ./cmake-${CMAKE_VERSION}-linux-aarch64.sh --skip-license --prefix=/usr/local \
     && rm cmake-${CMAKE_VERSION}-linux-aarch64.sh
 
 
