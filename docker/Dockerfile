@@ -3,6 +3,12 @@ FROM arm64v8/ubuntu:20.04
 # Set the working directory
 WORKDIR /workspace
 
+# Update the package lists for upgrades and new packages
+RUN apt-get update
+
+# Install wget
+RUN apt-get install -y wget
+
 # Define CMake version
 ARG CMAKE_VERSION=3.22.1
 
