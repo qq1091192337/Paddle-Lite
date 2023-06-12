@@ -2,9 +2,16 @@ FROM arm64v8/ubuntu:20.04
 
 # Set the working directory
 WORKDIR /workspace
-RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
-  apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' && \
-  
+
+# Define CMake version
+ARG CMAKE_VERSION=3.22.1
+
+# Download and run the installation script
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-aarch64.sh \
+    && chmod +x cmake-${CMAKE_VERSION}-linux-aarch64.sh \
+    && sudo ./cmake-${CMAKE_VERSION}-linux-aarch64.sh --skip-license --prefix=/usr/local \
+    && rm cmake-${CMAKE_VERSION}-linux-aarch64.sh
+
 
 # Install basic software and ca-certificates
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -18,7 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   patchelf \
   python-dev \
   git \
-  cmake
 
 
 # Clone the Paddle Lite repo and checkout the develop branch
