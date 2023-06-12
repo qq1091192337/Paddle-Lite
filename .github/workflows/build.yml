@@ -36,7 +36,7 @@ jobs:
           context: ./Paddle-Lite
           push: false
           platforms: linux/arm64
-          file: ../Dockerfile
+          file: ../docker/Dockerfile
           build-args: |
             WITH_EXCEPTION=ON
             WITH_EXTRA=ON
