@@ -30,6 +30,7 @@ jobs:
           push: false
           platforms: linux/arm64
           tags: qq1091192337/paddle-lite:latest
+          file: Dockerfile
           build-args: |
             WITH_EXCEPTION=ON
             WITH_EXTRA=ON
