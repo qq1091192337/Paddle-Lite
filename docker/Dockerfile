@@ -16,6 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python-dev \
   git
 
+# Download and install cmake
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.10.3/cmake-3.10.3.tar.gz && \
+  tar -xzvf cmake-3.10.3.tar.gz && \
+  cd cmake-3.10.3/ && \
+  ./bootstrap && \
+  make && \
+  make install
+
 # Clone the Paddle Lite repo and checkout the develop branch
 RUN git clone https://github.com/PaddlePaddle/Paddle-Lite.git && cd Paddle-Lite && git checkout develop
 
