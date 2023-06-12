@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          repository: PaddlePaddle/Paddle-Lite
+          repository: qq1091192337/Paddle-Lite
           ref: develop
       
       - name: Set up QEMU
