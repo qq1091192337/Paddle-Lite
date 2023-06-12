@@ -1,0 +1,39 @@
+name: Build Paddle-Lite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    container:
+      image: docker.io/arm64v8/ubuntu:20.04
+
+    steps:
+      - name: Install basic software
+        run: |
+          apt update
+          apt-get install -y --no-install-recommends gcc g++ make wget python unzip patchelf python-dev
+
+      - name: Install cmake
+        run: |
+          wget https://github.com/Kitware/CMake/releases/download/v3.10.3/cmake-3.10.3.tar.gz
+          tar -xzvf cmake-3.10.3.tar.gz
+          cd cmake-3.10.3
+          ./configure
+          make && make install
+
+      - name: Checkout Paddle-Lite
+        uses: actions/checkout@v2
+        with:
+          repository: PaddlePaddle/Paddle-Lite
+          ref: develop
+
+      - name: Build Paddle-Lite
+        run: |
+            sed -i 's/WITH_EXCEPTION=OFF/WITH_EXCEPTION=ON/' ./lite/tools/build_linux.sh
+            sed -i 's/WITH_EXTRA=OFF/WITH_EXTRA=ON/' ./lite/tools/build_linux.sh
+            ./lite/tools/build_linux.sh
